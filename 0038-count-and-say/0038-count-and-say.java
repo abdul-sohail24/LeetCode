@@ -4,10 +4,8 @@ class Solution
     {
         if(n == 1)
             return "1";
-        if(n == 2)
-            return "11";
-        String res = "11";
-        for(int j=3; j<=n; j++)
+        String res = "1";
+        for(int j=2; j<=n; j++)
         {
             String add = "";
             res = res+'^';
