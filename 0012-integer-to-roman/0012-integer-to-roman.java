@@ -3,81 +3,18 @@ class Solution
 {
     public String intToRoman(int num) 
     {
-        //Bruteforce
-        int rem = num;
+        //Optimized
         String ans = "";
-        Map<Character, Integer> symbol_value = new HashMap<>();
+        String[] ten_thousands = {"","M","MM","MMM"};
+        String[] thousands = {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"};
+        String[] hundreds = {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
+        String[] tens = {"","I","II","III","IV","V","VI","VII","VIII","IX"};
         
-        symbol_value.put('I',1);
-        symbol_value.put('V',5);
-        symbol_value.put('X',10);
-        symbol_value.put('L',50);
-        symbol_value.put('C',100);
-        symbol_value.put('D',500);
-        symbol_value.put('M',1000);
+        ans += ten_thousands[num/1000];
+        ans += thousands[(num%1000)/100];
+        ans += hundreds[(num%100)/10];
+        ans += tens[num%10];
         
-        int[] denominations = new int[7];
-        int j=0;
-        for(int i : symbol_value.values())
-        {
-            denominations[j] = i;
-            j++;
-        }
-        
-        Arrays.sort(denominations);
-        
-        int input = 1;
-        while(rem>0)
-        {
-            for(int i=0; i<7; i++)
-            {
-                if(rem >= denominations[i])
-                    input = denominations[i];
-            }
-            if(rem >= 400 && rem < 500)
-            {
-                ans+="CD";
-                rem-=400;
-            }
-            else if(rem >= 900 && rem < 1000)
-            {
-                ans+="CM";
-                rem-=900;
-            }
-            else if(rem >= 40 && rem < 50)
-            {
-                ans+="XL";
-                rem-=40;
-            }
-            else if(rem >= 90 && rem < 100)
-            {
-                ans+="XC";
-                rem-=90;
-            }
-            else if(rem == 4)
-            {
-                ans+="IV";
-                rem-=4;
-            }
-            else if(rem == 9)
-            {
-                ans+="IX";
-                rem-=9;
-            }
-            else
-            {
-                rem -= input;
-                for(Entry<Character, Integer> entry: symbol_value.entrySet()) 
-                {
-                    if(entry.getValue() == input) 
-                    {
-                        ans += entry.getKey();
-                            break;
-                    }   
-                }
-            }
-        }
-
         return ans;
     }
 }
