@@ -4,30 +4,19 @@ class Solution
     {
         //Optimized
         int n = nums.length;
-        int first=0, second=0, limit=0;
-        Set<Integer> numbers = new HashSet<>();
+        Map<Integer, Integer> numbers = new HashMap<>();
         
-        //Second
         for(int i=0; i<n; i++)
         {
-            if(numbers.contains(nums[i]))
+            if(numbers.containsKey(nums[i]))
             {
-                limit = i;
-                second = nums[i];
-                //First
-                for(int j=0; j<limit; j++)
-                {
-                    if(nums[j] == second)
-                    {
-                        first = j;
-                        if(limit - first <= k)
-                            return true;
-                    }
-                }
-        
+                if(i - numbers.get(nums[i]) <= k)
+                    return true;
+                else
+                    numbers.put(nums[i], i);
             }
             else
-                numbers.add(nums[i]);
+                numbers.put(nums[i], i);
         }
         
         return false;
