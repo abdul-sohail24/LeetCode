@@ -3,27 +3,48 @@ class Solution
     public boolean detectCapitalUse(String word) 
     {
         int n = word.length();
-        boolean upper = true, lower = true;
+        
+        if(n == 1)
+            return true;
 
         if(Character.isUpperCase(word.charAt(0)))
         {
-            for(int i=1; i<n; i++)
+            if(Character.isUpperCase(word.charAt(1)))
             {
-                if(Character.isUpperCase(word.charAt(i)) && upper)
-                    lower = false;
-                else if(Character.isLowerCase(word.charAt(i)) && lower)
-                    upper = false;
-                else
-                    return false;
+                for(int i=2; i<n; i++)
+                {
+                    if(Character.isLowerCase(word.charAt(i)))
+                        return false;
+                }
+            }
+
+            if(Character.isLowerCase(word.charAt(1)))
+            {
+                for(int i=2; i<n; i++)
+                {
+                    if(Character.isUpperCase(word.charAt(i)))
+                        return false;
+                }
             }
         }
+
         else
         {
-            for(int i=1; i<n; i++)
-                if(Character.isUpperCase(word.charAt(i)))
-                    return false;
+            if(Character.isUpperCase(word.charAt(1)))
+            {
+                return false;
+            }
+
+            if(Character.isLowerCase(word.charAt(1)))
+            {
+                for(int i=2; i<n; i++)
+                {
+                    if(Character.isUpperCase(word.charAt(i)))
+                        return false;
+                }
+            }
         }
 
-        return true; 
+        return true;
     }
 }
