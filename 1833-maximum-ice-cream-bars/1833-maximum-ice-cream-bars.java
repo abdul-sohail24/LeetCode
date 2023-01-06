@@ -2,19 +2,19 @@ class Solution
 {
     public int maxIceCream(int[] costs, int coins) 
     {
-        //Bruteforce
-        Arrays.sort(costs);
-        int n = costs.length, count = 0;
-        for(int i=0; i<n; i++)
+        //Optimized (min-Heap)
+        PriorityQueue<Integer> heap = new PriorityQueue();
+
+        for(int i: costs)
+            heap.add(i);
+        
+        int count = 0;
+        while(heap.size() > 0 && coins >= heap.peek())
         {
-            if(costs[i] > coins)
-                break;
-            else
-            {
-                coins -= costs[i];
-                count++;
-            }
-        } 
+            coins-=heap.remove();
+            count++;
+        }
+
         return count;   
     }
 }
